@@ -26,7 +26,6 @@ function iteratePokemon(pokemons) {
 
 //add pokemon onto the page
 function appendPokemon(pokemon) {
-  // console.log("appending")
   center = document.querySelector("center")
   center.style.display = "none"
 
@@ -84,7 +83,9 @@ let filterPokemon = function(pokemon) {
         return pokemon
       } 
     })
-    
+    if (!filteredPokemon.length) {
+      center.style.display = "block"
+    }
     iteratePokemon(filteredPokemon)
 
     
