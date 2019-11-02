@@ -95,9 +95,9 @@ let filterPokemon = function(pokemon) {
     one, do not produce the correct values, whenreas the other one
     does. */
     
-    // this one does not work
+    // //this one does not work
     // HTMLCollection.prototype.forEach = Array.prototype.forEach
-    // pokemonCardClass.forEach(function(element){
+    // pokemonCardClass.prototype.forEach(function(element){
     //   element.remove()
     // })
 
@@ -105,6 +105,8 @@ let filterPokemon = function(pokemon) {
     Array.from(pokemonCardClass).forEach(function(element) {
       element.remove()
     })
+
+    //this is a test to make sure everything is coming from this branch
 
     
 
