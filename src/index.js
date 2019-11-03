@@ -12,17 +12,19 @@ let fetchPokemon = function(){
       return response.json();
     })
     .then(function(pokemons){
-      iteratePokemon(pokemons)
-        return filterPokemon(pokemons)
+      iteratePokemon(pokemons);
+      filterPokemon(pokemons)
+      return flipPokemon(pokemons)
+      
     }) 
-}
+} //end fetch
 
 //iterate through
 function iteratePokemon(pokemons) {
   pokemons.forEach(function(pokemon){
     return appendPokemon(pokemon)
   })
-}
+} //end iteration
 
 //add pokemon onto the page
 function appendPokemon(pokemon) {
@@ -60,26 +62,20 @@ function appendPokemon(pokemon) {
 
   let pkc = document.getElementById("pokemon-container")
   pkc.appendChild(pokemonCardContainer)
-  // console.log(`i am adding ${pokemon}`)
-}
+} //append pokemon
 
 let pokemonCardClass = document.getElementsByClassName("pokemon-card")
 
-let filterPokemon = function(pokemon) {
+//filter pokemon
+let filterPokemon = function(pokemons) {
   let searchBar = document.getElementById("pokemon-search-input")
-  console.log(`${pokemonCardClass.length}, I am pokemon-card length at filterPokemon`)
-  
   searchBar.addEventListener('input', function(e) {
-    console.log(`${pokemonCardClass.length}, I am pokemon-card length, after the event listener is called`)
-
     Array.from(pokemonCardClass).forEach(function(element) {
       element.remove()
     })
-    console.log("In filtered pokemon, after the event clicker")
     
-    filteredPokemon = pokemon.filter(function(pokemon) {
+    let filteredPokemon = pokemons.filter(function(pokemon) {
       if (pokemon.name.includes(e.target.value)) {
-        console.log(e.target.value)
         return pokemon
       } 
     })
@@ -87,10 +83,30 @@ let filterPokemon = function(pokemon) {
       center.style.display = "block"
     }
     iteratePokemon(filteredPokemon)
-
-    
   })
-}
+} //end filter pokemon
+
+
+let flipPokemon = function(pokemons) {
+  document.addEventListener('click', function(e) {
+    if (e.target.className === "toggle-sprite") {
+      let id = parseInt(e.target.dataset.id)
+      let foundPokemon = pokemons.find(function(pokemon) {
+        return pokemon.id === id
+      })
+
+    if (e.target.src === foundPokemon.sprites.front) {
+      e.target.src = foundPokemon.sprites.back
+    } else {
+      e.target.src = foundPokemon.sprites.front
+    }
+    }
+  })
+} //end flipPokemon
+
+
+// console.log(`my id is ${id}`)
+// console.dir(e.target)
 
 
 // //this one does not work
@@ -101,4 +117,7 @@ let filterPokemon = function(pokemon) {
 
 // if(!!filteredPokemon.length) {
     //   center.style.display = "block"
-    // }
+    // 
+
+
+    
